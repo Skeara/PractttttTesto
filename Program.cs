@@ -20,7 +20,7 @@
             if (amount > 0)
             {
                 Balance += amount;
-                Console.WriteLine($"баланс пополнен на {amount}₽. текущий баланс: {Balance}₽");
+                Console.WriteLine($"баланс пополнен на {amount}. текущий баланс: {Balance}");
             }
             else
             {
@@ -51,8 +51,8 @@
             user.Login("wrong");
             user.Login("12345");
 
-            user.AddBalance(500);
-            user.AddBalance(-100);
+            int a = Convert.ToInt32($"пополняем баланс на: " + Console.ReadLine());
+            user.AddBalance(a);
         }
     }
 }

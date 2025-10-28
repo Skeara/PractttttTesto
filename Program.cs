@@ -1,39 +1,44 @@
-﻿using System;
-
-namespace praktika
+﻿namespace Praktika
 {
     public class User
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Username { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
-        public int Age { get; set; }
+        private string Password { get; set; }
+        public double Balance { get; private set; }
 
-        public void ShowInfo()
+        public User(string username, string email, string password)
         {
-            Console.WriteLine($"имя: {FirstName} {LastName}");
-            Console.WriteLine($"почта: {Email}");
-            Console.WriteLine($"возраст: {Age}");
-        }
-    }
-
-    public class Calculator
-    {
-        public int Add(int a, int b)
-        {
-            return a + b;
+            Username = username;
+            Email = email;
+            Password = password;
+            Balance = 0.0;
         }
 
-        private void Subtract(int a, int b)
+        public void AddBalance(double amount)
         {
-            int result = a - b;
-            Console.WriteLine($"разность: {result}");
+            if (amount > 0)
+            {
+                Balance += amount;
+                Console.WriteLine($"баланс пополнен на {amount}₽. текущий баланс: {Balance}₽");
+            }
+            else
+            {
+                Console.WriteLine("ошибка: сумма только положительная");
+            }
         }
 
-        public void ShowSubtraction(int a, int b)
+        private bool CheckPassword(string inputPassword)
         {
-            Subtract(a, b);
+            return inputPassword == Password;
+        }
+
+        public void Login(string inputPassword)
+        {
+            if (CheckPassword(inputPassword))
+                Console.WriteLine($"прювет, {Username}!");
+            else
+                Console.WriteLine("неверный пароль");
         }
     }
 
@@ -41,22 +46,14 @@ namespace praktika
     {
         static void Main(string[] args)
         {
-            User user1 = new User()
-            {
-                FirstName = "иван",
-                LastName = "иванов",
-                Email = "ivan@mail.com",
-                Password = "12345",
-                Age = 25
-            };
+            User user = new User("Skeara", "support@mozimer.ru", "12345");
 
-            user1.ShowInfo();
+            user.Login("wrong");
+            user.Login("12345");
 
-            Calculator calc = new Calculator();
-            int sum = calc.Add(10, 5);
-            Console.WriteLine($"сумма: {sum}");
-
-            calc.ShowSubtraction(10, 5);
+            user.AddBalance(500);
+            user.AddBalance(-100);
         }
     }
 }
+

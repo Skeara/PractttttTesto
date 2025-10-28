@@ -1,4 +1,6 @@
-﻿namespace Praktika
+﻿using System.ComponentModel;
+
+namespace Praktika
 {
     public class User
     {
@@ -33,12 +35,18 @@
             return inputPassword == Password;
         }
 
-        public void Login(string inputPassword)
+        public bool Login(string inputPassword)
         {
             if (CheckPassword(inputPassword))
+            {
                 Console.WriteLine($"прювет, {Username}!");
+                return true;
+            }
             else
-                Console.WriteLine("неверный пароль");
+            {
+                Console.WriteLine("не тот");
+                return false;
+            }
         }
     }
 
@@ -48,11 +56,18 @@
         {
             User user = new User("Skeara", "support@mozimer.ru", "12345");
 
-            user.Login("wrong");
-            user.Login("12345");
+            while (true)
+            {
+                Console.Write("скажи пароль: ");
+                string inputPassword = Console.ReadLine();
 
-            int a = Convert.ToInt32($"пополняем баланс на: " + Console.ReadLine());
-            user.AddBalance(a);
+                if (user.Login(inputPassword))
+                    break;
+            }
+
+            Console.Write("\nсумма для пополнения баланса: ");
+            double amount = Convert.ToDouble(Console.ReadLine());
+            user.AddBalance(amount);
         }
     }
 }

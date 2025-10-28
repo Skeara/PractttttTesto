@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Praktika
+﻿namespace Praktika
 {
     public class User
     {
